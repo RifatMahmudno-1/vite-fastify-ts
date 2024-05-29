@@ -1,6 +1,7 @@
 {
 	"name": "vite-fastify-ts",
 	"type": "module",
+	"version": "1.0.1",
 	"scripts": {
 		"install:client": "cd client && npm install",
 		"install:server": "cd server && npm install",

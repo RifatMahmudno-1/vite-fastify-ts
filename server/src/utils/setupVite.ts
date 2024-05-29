@@ -13,7 +13,6 @@ export default async (fastify: FastifyInstance) => {
 
 		const vite = await createServer({
 			configFile: join(clientDir, './vite.config.ts'),
-			root: clientDir,
 			server: {
 				middlewareMode: true
 			}

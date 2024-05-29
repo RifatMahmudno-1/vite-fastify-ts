@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import Pages from 'vite-plugin-pages'
+
+const root = join(dirname(fileURLToPath(import.meta.url)))
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	root,
 	plugins: [
 		react(),
 		Pages({
@@ -13,10 +18,10 @@ export default defineConfig({
 	build: {
 		assetsInlineLimit: 0,
 		emptyOutDir: true,
-		outDir: './build/____'
+		outDir: join(root, './build/____')
 	},
 	resolve: {
-		alias: { '@/': './' }
+		alias: [{ find: '@', replacement: root }]
 	},
-	envDir: '../'
+	envDir: join(root, '../')
 })
