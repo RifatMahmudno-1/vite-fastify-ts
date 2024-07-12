@@ -6,12 +6,12 @@
 		"start": "node ./build/index.js"
 	},
 	"dependencies": {
-		"@fastify/env": "^4.3.0",
+		"@fastify/env": "^4.4.0",
 		"@fastify/static": "^7.0.4",
-		"@types/node": "^20.12.12",
-		"fastify": "^4.27.0",
-		"tsx": "^4.11.0",
-		"typescript": "^5.4.5",
-		"vite": "^5.2.12"
+		"@types/node": "^20.14.10",
+		"fastify": "^4.28.1",
+		"tsx": "^4.16.2",
+		"typescript": "^5.5.3",
+		"vite": "^5.3.3"
 	}
 }
