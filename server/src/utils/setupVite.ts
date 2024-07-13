@@ -19,6 +19,7 @@ export default async (fastify: FastifyInstance) => {
 	} else {
 		if (process.env.Serverless !== 'YES') {
 			const { default: fastifyStatic } = await import('@fastify/static')
+
 			await fastify.register(fastifyStatic, {
 				root: join(clientDir, './build'),
 				cacheControl: false,
@@ -29,10 +30,13 @@ export default async (fastify: FastifyInstance) => {
 					else setHeader('cache-control', 'public, max-age=120, must-revalidate')
 				}
 			})
+
 			fastify.get('*', (_, res) => res.sendFile('index.html'))
 		} else {
 			const { readFileSync } = await import('node:fs')
-			fastify.get('*', (_, res) => res.send(readFileSync(join(clientDir, './build/index.html'))))
+			const indexFile = readFileSync(join(clientDir, './build/index.html'))
+
+			fastify.get('*', (_, res) => res.header('content-type', 'text/html').send(indexFile))
 		}
 	}
 }
