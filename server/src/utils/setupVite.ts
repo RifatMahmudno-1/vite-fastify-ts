@@ -36,7 +36,7 @@ export default async (fastify: FastifyInstance) => {
 			const { readFileSync } = await import('node:fs')
 			const indexFile = readFileSync(join(clientDir, './build/index.html'))
 
-			fastify.get('*', (_, res) => res.header('content-type', 'text/html').send(indexFile))
+			fastify.get('*', (_, res) => res.type('text/html').send(indexFile))
 		}
 	}
 }
