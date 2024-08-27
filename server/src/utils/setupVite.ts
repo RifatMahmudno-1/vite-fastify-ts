@@ -18,6 +18,9 @@ export default async (fastify: FastifyInstance) => {
 		fastify.get('*', (req, res) => vite.middlewares(req.raw, res.raw))
 	} else {
 		if (process.env.Serverless !== 'YES') {
+			// not serverless, actual server
+			// headers are needed for cache
+
 			const { default: fastifyStatic } = await import('@fastify/static')
 
 			await fastify.register(fastifyStatic, {
@@ -26,13 +29,16 @@ export default async (fastify: FastifyInstance) => {
 				wildcard: false,
 				setHeaders({ setHeader }, path, __) {
 					const bn = basename(path)
-					if (bn && bn.match(/.*-.{8}.[a-zA-Z0-9]+$/)?.[0] === bn) setHeader('cache-control', 'public, max-age=31536000, immutable')
+					if (bn && bn.match(/.*-.{8}\.[a-zA-Z0-9]+$/)?.[0] === bn) setHeader('cache-control', 'public, max-age=31536000, immutable')
 					else setHeader('cache-control', 'public, max-age=120, must-revalidate')
 				}
 			})
 
 			fastify.get('*', (_, res) => res.sendFile('index.html'))
 		} else {
+			// serverless
+			// headers not needed here cause static files aren't served from here
+
 			const { readFileSync } = await import('node:fs')
 			const indexFile = readFileSync(join(clientDir, './build/index.html'))
 
