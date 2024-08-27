@@ -1,9 +1,7 @@
 import Fastify from 'fastify'
-import fastifyEnv from '@fastify/env'
 import setupVite from './utils/setupVite.js'
 
 const fastify = Fastify()
-await fastify.register(fastifyEnv, { dotenv: { path: '../.env' }, schema: { type: 'object' } })
 
 // will handle all get requests
 await setupVite(fastify)

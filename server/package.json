@@ -1,17 +1,16 @@
 {
 	"type": "module",
 	"scripts": {
-		"dev": "tsx watch --clear-screen=false --ignore ../client --ignore ./build ./src/index.ts --dev",
+		"dev": "tsx watch --clear-screen=false --ignore ../client --ignore ./build --env-file=../.env ./src/index.ts --dev",
 		"build": "tsc",
-		"start": "node ./build/index.js"
+		"start": "node --env-file=../.env ./build/index.js"
 	},
 	"dependencies": {
-		"@fastify/env": "^4.4.0",
 		"@fastify/static": "^7.0.4",
-		"@types/node": "^20.14.10",
+		"@types/node": "^22.5.0",
 		"fastify": "^4.28.1",
-		"tsx": "^4.16.2",
-		"typescript": "^5.5.3",
-		"vite": "^5.3.3"
+		"tsx": "^4.19.0",
+		"typescript": "^5.5.4",
+		"vite": "^5.4.2"
 	}
 }
